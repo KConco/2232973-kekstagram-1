@@ -17,7 +17,14 @@ picturesList.addEventListener('click', (evt) => {
   renderFullPhoto(picture);
 });
 
+const clearGallery = () => {
+  document.querySelectorAll('.picture').forEach((element) => {
+    element.remove();
+  });
+};
+
 const renderGallery = (pictures) => {
+  clearGallery();
   localPictures.length = 0;
   localPictures.push(...pictures.slice());
   renderThumbnails(pictures, picturesList);

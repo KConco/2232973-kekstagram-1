@@ -123,4 +123,11 @@ const effectSettings = {
   },
 };
 
-export { hashtagValidations, effectSettings, COMMENTS, NAMES, LIKES_MIN, LIKES_MAX, COMMENTS_MIN, COMMENTS_MAX, AVATAR_START, AVATAR_END, COMMENTS_TO_RENDER, COMMENT_MAX_LENGTH, HASHTAGS_MAX, SCALE_MIN, SCALE_MAX, SCALE_STEP};
+const SumbitStatus = {
+  STAND_BY: 'Опубликовать',
+  SENDING: 'Отправка...',
+};
+
+export { hashtagValidations, effectSettings, SumbitStatus, COMMENTS, NAMES, LIKES_MIN,
+  LIKES_MAX, COMMENTS_MIN, COMMENTS_MAX, AVATAR_START, AVATAR_END, COMMENTS_TO_RENDER,
+  COMMENT_MAX_LENGTH, HASHTAGS_MAX, SCALE_MIN, SCALE_MAX, SCALE_STEP};
