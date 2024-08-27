@@ -1,3 +1,5 @@
+import { debounce } from './util.js';
+
 const imgFiltersForm = document.querySelector('.img-filters__form');
 const filterDefault = document.querySelector('#filter-default');
 const filterRandom = document.querySelector('#filter-random');
@@ -12,13 +14,13 @@ const applyFilters = (pictures, renderGallery) => {
       evt.target.classList.add('img-filters__button--active');
 
       if (evt.target === filterDefault) {
-        renderGallery(pictures);
+        debounce(() => renderGallery(pictures), 500)();
       } else if (evt.target === filterRandom) {
         const randomPhotos = pictures.slice().sort(() => 0.5 - Math.random()).slice(0, RANDOM_PHOTOS_COUNT);
-        renderGallery(randomPhotos);
+        debounce(() => renderGallery(randomPhotos), 500)();
       } else if (evt.target === filterDiscussed) {
         const discussedPhotos = pictures.slice().sort((a, b) => b.comments.length - a.comments.length);
-        renderGallery(discussedPhotos);
+        debounce(() => renderGallery(discussedPhotos), 500)();
       }
     }
   };
