@@ -3,7 +3,7 @@ import { isValid, resetValidation } from './validation.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 import { showMessage } from './api.js';
-import { SumbitStatus, FILE_TYPES } from './constants.js';
+import { SumbitStatus, FILE_TYPES, BASE_URL } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const preview = document.querySelector('.img-upload__preview img');
@@ -63,8 +63,8 @@ uploadForm.addEventListener('submit', (evt) => {
   if (isValid()) {
     const formData = new FormData(uploadForm);
     setSubmitStatus(true);
-    fetch('https://28.javascript.htmlacademy.pro/kekstagram', {
-      method: 'POST',
+    fetch(BASE_URL, {
+      method: 'POSTв',
       body: formData,
     })
       .then((response) => {

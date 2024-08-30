@@ -11,6 +11,7 @@ const SCALE_MIN = 25;
 const SCALE_MAX = 100;
 const SCALE_STEP = 25;
 const RANDOM_PHOTOS_COUNT = 10;
+const BASE_URL = 'https://28.javascript.htmlacademy.pro/kekstagram';
 
 const COMMENTS = [
   'Всё отлично!',
@@ -135,8 +136,18 @@ const Filters = {
   DISCUSSED: 'filter-discussed',
 };
 
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
+};
+
+const Method = {
+  GET: 'GET',
+  POST: 'POST',
+};
+
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-export { hashtagValidations, effectSettings, SumbitStatus, Filters, COMMENTS, NAMES, LIKES_MIN,
+export { hashtagValidations, effectSettings, SumbitStatus, Filters, Route, Method, COMMENTS, NAMES, LIKES_MIN,
   LIKES_MAX, COMMENTS_MIN, COMMENTS_MAX, AVATAR_START, AVATAR_END, COMMENTS_TO_RENDER,
-  COMMENT_MAX_LENGTH, HASHTAGS_MAX, SCALE_MIN, SCALE_MAX, SCALE_STEP, RANDOM_PHOTOS_COUNT, FILE_TYPES };
+  COMMENT_MAX_LENGTH, HASHTAGS_MAX, SCALE_MIN, SCALE_MAX, SCALE_STEP, RANDOM_PHOTOS_COUNT, FILE_TYPES, BASE_URL };
