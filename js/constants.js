@@ -10,6 +10,7 @@ const HASHTAGS_MAX = 5;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
 const SCALE_STEP = 25;
+const RANDOM_PHOTOS_COUNT = 10;
 
 const COMMENTS = [
   'Всё отлично!',
@@ -128,6 +129,14 @@ const SumbitStatus = {
   SENDING: 'Отправка...',
 };
 
-export { hashtagValidations, effectSettings, SumbitStatus, COMMENTS, NAMES, LIKES_MIN,
+const Filters = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed',
+};
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+export { hashtagValidations, effectSettings, SumbitStatus, Filters, COMMENTS, NAMES, LIKES_MIN,
   LIKES_MAX, COMMENTS_MIN, COMMENTS_MAX, AVATAR_START, AVATAR_END, COMMENTS_TO_RENDER,
-  COMMENT_MAX_LENGTH, HASHTAGS_MAX, SCALE_MIN, SCALE_MAX, SCALE_STEP};
+  COMMENT_MAX_LENGTH, HASHTAGS_MAX, SCALE_MIN, SCALE_MAX, SCALE_STEP, RANDOM_PHOTOS_COUNT, FILE_TYPES };

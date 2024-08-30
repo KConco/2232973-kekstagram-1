@@ -2,10 +2,11 @@ import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
-import { showMessage } from './fetch-result.js';
-import { SumbitStatus } from './constants.js';
+import { showMessage } from './api.js';
+import { SumbitStatus, FILE_TYPES } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
+const preview = document.querySelector('.img-upload__preview img');
 const fileUpload = document.querySelector('#upload-file');
 const popupUpload = document.querySelector('.img-upload__overlay');
 const closeButton = document.querySelector('#upload-cancel');
@@ -23,6 +24,12 @@ const openForm = () => {
 
 fileUpload.addEventListener('change', () => {
   openForm();
+  const file = fileUpload.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    preview.src = URL.createObjectURL(file);
+  }
 });
 
 const resetForm = () => {
@@ -65,7 +72,6 @@ uploadForm.addEventListener('submit', (evt) => {
           showMessage(successMessage);
           closeForm();
         } else {
-          showMessage(errorMessage);
           throw new Error(response.status);
         }
       })
