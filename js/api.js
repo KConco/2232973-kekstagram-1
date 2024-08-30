@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { BASE_URL, Route } from './constants.js';
 
 let currentMessageElement = null;
 
@@ -32,10 +33,41 @@ const showMessage = (template) => {
 function removeMessage() {
   currentMessageElement.remove();
   currentMessageElement = null;
-  const closeButton = currentMessageElement.querySelector('.success__button, .error__button');
-  closeButton.removeEventListener('click', removeMessage);
   document.removeEventListener('keydown', onEscKeydown);
   document.removeEventListener('click', onOutsideClick);
 }
 
-export { showMessage };
+const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.error');
+
+const getData = () =>
+  fetch(`${BASE_URL}${Route.GET_DATA}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    })
+    .catch(() => {
+      showMessage(dataErrorTemplate);
+    });
+
+// const sendData = () => fetch('https://28.javascript.htmlacademy.pro/kekstagram', {
+//   method: 'POST',
+//   body: formData,
+// })
+//   .then((response) => {
+//     if (response.ok) {
+//       showMessage(successMessage);
+//       closeForm();
+//     } else {
+//       throw new Error(response.status);
+//     }
+//   })
+//   .catch(() => {
+//     showMessage(errorMessage);
+//   })
+//   .finally(() => {
+//     setSubmitStatus(false);
+//   });
+
+export { getData, showMessage };
