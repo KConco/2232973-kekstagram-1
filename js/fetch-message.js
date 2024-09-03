@@ -1,15 +1,12 @@
 import {setEscapeControl, removeEscapeControl} from './escape-control.js';
 
-const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
 
 const templates = {
   'success': successMessage,
-  'error': errorMessage,
-  'data-error': dataErrorTemplate,
+  'error': errorMessage
 };
-
 
 const closeMessage = (template) => {
   const message = document.querySelector(`.${template}`);
@@ -26,7 +23,9 @@ const showMessage = (template) => {
       removeEscapeControl();
     }
   });
-  setEscapeControl(closeMessage);
+  setEscapeControl(() => {
+    closeMessage(template);
+  });
 };
 
 export {showMessage};

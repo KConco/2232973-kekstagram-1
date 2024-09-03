@@ -1,5 +1,3 @@
-const AVATAR_START = 1;
-const AVATAR_END = 6;
 const COMMENTS_TO_RENDER = 5;
 const COMMENT_MAX_LENGTH = 140;
 const HASHTAGS_MAX = 5;
@@ -124,5 +122,20 @@ const Method = {
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-export { hashtagValidations, effectSettings, SumbitStatus, Filters, Route, Method, AVATAR_START, AVATAR_END, COMMENTS_TO_RENDER,
-  COMMENT_MAX_LENGTH, HASHTAGS_MAX, SCALE_MIN, SCALE_MAX, SCALE_STEP, RANDOM_PHOTOS_COUNT, FILE_TYPES, BASE_URL };
+export {
+  hashtagValidations,
+  effectSettings,
+  SumbitStatus,
+  Filters,
+  Route,
+  Method,
+  COMMENTS_TO_RENDER,
+  COMMENT_MAX_LENGTH,
+  HASHTAGS_MAX,
+  SCALE_MIN,
+  SCALE_MAX,
+  SCALE_STEP,
+  RANDOM_PHOTOS_COUNT,
+  FILE_TYPES,
+  BASE_URL
+};

@@ -1,16 +1,12 @@
 import { BASE_URL, Route } from './constants.js';
-import { showMessage } from './fetch-message.js';
 
 const getData = () =>
   fetch(`${BASE_URL}${Route.GET_DATA}`)
     .then((response) => {
       if (!response.ok) {
-        throw new Error(response.status);
+        throw new Error();
       }
       return response.json();
-    })
-    .catch(() => {
-      showMessage('data-error');
     });
 
 const sendData = (body, onSuccess, onError, onFinally) =>

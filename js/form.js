@@ -13,13 +13,15 @@ const popupUpload = document.querySelector('.img-upload__overlay');
 const closeButton = document.querySelector('#upload-cancel');
 const submitButton = document.querySelector('#upload-submit');
 const effectsPreviews = document.querySelectorAll('.effects__preview');
-// const tagsField = document.querySelector('.text__hashtags');
-// const photoComment = document.querySelector('.text__description');
+const tagsField = document.querySelector('.text__hashtags');
+const photoComment = document.querySelector('.text__description');
+
+const canBeClosed = () => !(document.activeElement === photoComment || document.activeElement === tagsField);
 
 const openForm = () => {
   popupUpload.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
-  setEscapeControl(closeForm);
+  setEscapeControl(closeForm, canBeClosed);
 };
 
 fileUpload.addEventListener('change', () => {
@@ -81,15 +83,6 @@ uploadForm.addEventListener('submit', (evt) => {
 function closeForm() {
   popupUpload.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  // document.removeEventListener('keydown', onDocumentKeydown);
   resetForm();
 }
 
-// function onDocumentKeydown(evt) {
-//   if (isEscapeKey(evt)) {
-//     if (document.activeElement === photoComment || document.activeElement === tagsField) {
-//       return document.activeElement.blur();
-//     }
-//     closeForm();
-//   }
-// }
