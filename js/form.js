@@ -58,26 +58,25 @@ const setSubmitStatus = (isDisabled) => {
   submitButton.textContent = SumbitStatus[isDisabled ? 'SENDING' : 'STAND_BY'];
 };
 
+const onSuccess = () => {
+  closeForm();
+  showMessage(successMessage);
+};
+
+const onError = () => {
+  showMessage(errorMessage);
+};
+
+const onFinally = () => {
+  setSubmitStatus(false);
+};
+
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if (isValid()) {
     const formData = new FormData(uploadForm);
     setSubmitStatus(true);
-    sendData(formData)
-      .then((response) => {
-        if (response.ok) {
-          showMessage(successMessage);
-          closeForm();
-        } else {
-          throw new Error(response.status);
-        }
-      })
-      .catch(() => {
-        showMessage(errorMessage);
-      })
-      .finally(() => {
-        setSubmitStatus(false);
-      });
+    sendData(formData, onSuccess, onError, onFinally);
   }
 });
 

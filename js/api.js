@@ -51,10 +51,23 @@ const getData = () =>
       showMessage(dataErrorTemplate);
     });
 
-const sendData = (body) => fetch('https://28.javascript.htmlacademy.pro/kekstagram', {
-  method: 'POST',
-  body,
-});
+const sendData = (body, onSuccess, onError, onFinally) =>
+  fetch('https://28.javascript.htmlacademy.pro/kekstagram', {
+    method: 'POST',
+    body,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      onSuccess();
+    })
+    .catch(() => {
+      onError();
+    })
+    .finally(() => {
+      onFinally();
+    });
 
 
 export { getData, showMessage, sendData };
