@@ -2,8 +2,8 @@ import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
-import { showMessage } from './api.js';
-import { SumbitStatus, FILE_TYPES, BASE_URL } from './constants.js';
+import { showMessage, sendData } from './api.js';
+import { SumbitStatus, FILE_TYPES } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const preview = document.querySelector('.img-upload__preview img');
@@ -63,10 +63,7 @@ uploadForm.addEventListener('submit', (evt) => {
   if (isValid()) {
     const formData = new FormData(uploadForm);
     setSubmitStatus(true);
-    fetch(BASE_URL, {
-      method: 'POSTв',
-      body: formData,
-    })
+    sendData(formData)
       .then((response) => {
         if (response.ok) {
           showMessage(successMessage);

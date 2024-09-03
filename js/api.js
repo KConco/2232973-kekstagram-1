@@ -51,23 +51,10 @@ const getData = () =>
       showMessage(dataErrorTemplate);
     });
 
-// const sendData = () => fetch('https://28.javascript.htmlacademy.pro/kekstagram', {
-//   method: 'POST',
-//   body: formData,
-// })
-//   .then((response) => {
-//     if (response.ok) {
-//       showMessage(successMessage);
-//       closeForm();
-//     } else {
-//       throw new Error(response.status);
-//     }
-//   })
-//   .catch(() => {
-//     showMessage(errorMessage);
-//   })
-//   .finally(() => {
-//     setSubmitStatus(false);
-//   });
+const sendData = (body) => fetch('https://28.javascript.htmlacademy.pro/kekstagram', {
+  method: 'POST',
+  body,
+});
 
-export { getData, showMessage };
+
+export { getData, showMessage, sendData };
