@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { setEscapeControl, removeEscapeControl } from './escape-control.js';
 import { COMMENTS_TO_RENDER } from './constants.js';
 
 const fullCard = document.querySelector('.big-picture');
@@ -47,7 +47,15 @@ const renderComments = () => {
 
 const onMoreCommentsClick = () => renderComments();
 
+const closeFullPhoto = () => {
+  document.querySelector('body').classList.remove('modal-open');
+  fullCard.classList.add('hidden');
+  commentsShown = 0;
+  commentsShowMore.removeEventListener('click', onMoreCommentsClick);
+};
+
 const renderFullPhoto = ({ url, likes, comments, description }) => {
+
   document.querySelector('body').classList.add('modal-open');
   cardImage.src = url;
   cardLikes.textContent = likes;
@@ -55,29 +63,15 @@ const renderFullPhoto = ({ url, likes, comments, description }) => {
   cardDescription.textContent = description;
   commentsBlock.innerHTML = '';
   commentsArray = comments;
+  setEscapeControl(closeFullPhoto);
   renderComments();
-
   commentsShowMore.addEventListener('click', onMoreCommentsClick);
-  document.addEventListener('keydown', onDocumentKeydown);
   fullCard.classList.remove('hidden');
-};
-
-const closeFullPhoto = () => {
-  document.querySelector('body').classList.remove('modal-open');
-  fullCard.classList.add('hidden');
-  commentsShown = 0;
-  document.removeEventListener('keydown', onDocumentKeydown);
-  commentsShowMore.removeEventListener('click', onMoreCommentsClick);
 };
 
 closePhotoButton.addEventListener('click', () => {
   closeFullPhoto();
+  removeEscapeControl();
 });
-
-function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    closeFullPhoto();
-  }
-}
 
 export { renderFullPhoto };
