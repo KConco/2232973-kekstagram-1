@@ -1,8 +1,9 @@
-import { isEscapeKey } from './util.js';
+import { setEscapeControl, removeEscapeControl } from './escape-control.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
-import { showMessage, sendData } from './api.js';
+import { sendData } from './api.js';
+import { showMessage } from './fetch-message.js';
 import { SumbitStatus, FILE_TYPES } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
@@ -11,15 +12,14 @@ const fileUpload = document.querySelector('#upload-file');
 const popupUpload = document.querySelector('.img-upload__overlay');
 const closeButton = document.querySelector('#upload-cancel');
 const submitButton = document.querySelector('#upload-submit');
-const tagsField = document.querySelector('.text__hashtags');
-const photoComment = document.querySelector('.text__description');
-const successMessage = document.querySelector('#success').content.querySelector('.success');
-const errorMessage = document.querySelector('#error').content.querySelector('.error');
+const effectsPreviews = document.querySelectorAll('.effects__preview');
+// const tagsField = document.querySelector('.text__hashtags');
+// const photoComment = document.querySelector('.text__description');
 
 const openForm = () => {
   popupUpload.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+  setEscapeControl(closeForm);
 };
 
 fileUpload.addEventListener('change', () => {
@@ -29,6 +29,9 @@ fileUpload.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if (matches) {
     preview.src = URL.createObjectURL(file);
+    effectsPreviews.forEach((item) => {
+      item.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+    });
   }
 });
 
@@ -41,16 +44,10 @@ const resetForm = () => {
 
 resetForm();
 
-const closeForm = () => {
-  popupUpload.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
-  resetForm();
-};
-
 closeButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   closeForm();
+  removeEscapeControl();
 });
 
 const setSubmitStatus = (isDisabled) => {
@@ -60,11 +57,12 @@ const setSubmitStatus = (isDisabled) => {
 
 const onSuccess = () => {
   closeForm();
-  showMessage(successMessage);
+  removeEscapeControl();
+  showMessage('success');
 };
 
 const onError = () => {
-  showMessage(errorMessage);
+  showMessage('error');
 };
 
 const onFinally = () => {
@@ -80,11 +78,18 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    if (document.activeElement === photoComment || document.activeElement === tagsField) {
-      return document.activeElement.blur();
-    }
-    closeForm();
-  }
+function closeForm() {
+  popupUpload.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+  // document.removeEventListener('keydown', onDocumentKeydown);
+  resetForm();
 }
+
+// function onDocumentKeydown(evt) {
+//   if (isEscapeKey(evt)) {
+//     if (document.activeElement === photoComment || document.activeElement === tagsField) {
+//       return document.activeElement.blur();
+//     }
+//     closeForm();
+//   }
+// }

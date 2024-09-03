@@ -18,7 +18,7 @@ pristine.addValidator(
   `Не более ${COMMENT_MAX_LENGTH} символов`
 );
 
-Object.keys(hashtagValidations).forEach((key) => {
+Object.keys(hashtagValidations).forEach((key, index, arr) => {
   pristine.addValidator(
     tagsField,
     (value) => {
@@ -28,7 +28,9 @@ Object.keys(hashtagValidations).forEach((key) => {
       }
       return hashtags.every((tag) => hashtagValidations[key].test(tag));
     },
-    hashtagValidations[key].errorMessage
+    hashtagValidations[key].errorMessage,
+    arr.length - index,
+    true
   );
 });
 
